@@ -1,0 +1,19 @@
+[Unit]
+Description=CLIProxyAPI backend (source checkout)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/CLIProxyAPI
+ExecStartPre=/usr/bin/test -x /home/ubuntu/CLIProxyAPI/cli-proxy-api
+ExecStartPre=/usr/bin/test -r /home/ubuntu/CLIProxyAPI/config.yaml
+ExecStart=/home/ubuntu/CLIProxyAPI/cli-proxy-api --config /home/ubuntu/CLIProxyAPI/config.yaml
+Restart=on-failure
+RestartSec=5
+Environment=HOME=/home/ubuntu
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+# Local secrets and runtime state
+*.local.yaml
+*.local.yml
+*.secret
+*.key
+*.pem
+.env
+.env.*
+!*.example
+auths/
+auth-dir/
+proxy-data/config/
+proxy-data/*.log
+
+# Build output and dependency caches
+bin/
+dist/
+node_modules/
+vendor/*/cli-proxy-api
+vendor/*/proxy-data/
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp

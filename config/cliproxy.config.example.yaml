@@ -1,0 +1,33 @@
+# CLIProxyAPI server configuration template.
+# Copy this file to /home/ubuntu/CLIProxyAPI/config.yaml and fill the secrets.
+
+host: "127.0.0.1"
+port: 8317
+
+tls:
+  enable: false
+  cert: ""
+  key: ""
+
+remote-management:
+  allow-remote: false
+  secret-key: "<CHANGE-ME-MANAGEMENT-KEY>"
+  disable-control-panel: false
+
+auth-dir: "~/.cli-proxy-api"
+
+api-keys:
+  - "<CHANGE-ME-API-KEY>"
+
+debug: false
+
+# CLIProxyAPI's Codex uTLS path needs this explicit setting.
+# Shell proxy variables alone are not sufficient.
+proxy-url: "http://127.0.0.1:7890"
+
+quota-exceeded:
+  switch-project: true
+  switch-preview-model: true
+
+routing:
+  strategy: "round-robin"

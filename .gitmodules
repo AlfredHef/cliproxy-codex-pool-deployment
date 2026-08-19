@@ -1,0 +1,11 @@
+[submodule "vendor/CLIProxyAPI"]
+path = vendor/CLIProxyAPI
+url = https://github.com/router-for-me/CLIProxyAPI.git
+
+[submodule "vendor/pproxy"]
+	path = vendor/pproxy
+	url = https://github.com/w568w/pproxy.git
+
+[submodule "vendor/Cli-Proxy-API-Management-Center"]
+	path = vendor/Cli-Proxy-API-Management-Center
+	url = https://github.com/router-for-me/Cli-Proxy-API-Management-Center.git

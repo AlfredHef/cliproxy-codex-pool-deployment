@@ -1,0 +1,16 @@
+[Unit]
+Description=PProxy Mihomo outbound proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/pproxy
+ExecStart=/home/ubuntu/pproxy/proxy-data/mihomo -d /home/ubuntu/pproxy/proxy-data/config -ext-ctl 127.0.0.1:9090 -ext-ui /home/ubuntu/pproxy/proxy-data/metacubexd
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
