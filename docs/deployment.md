@@ -302,9 +302,16 @@ systemctl is-active cliproxy-backend.service
 
 只在 `.bashrc` 中设置代理不够。CLIProxyAPI 的 Codex 推理链路使用专门的 uTLS HTTP 客户端，它优先读取账号级 `ProxyURL`，其次读取全局 `proxy-url`；未配置时可能直接连接 `chatgpt.com`，最终出现连接超时或地区限制。
 
-### 5.2 建议同时配置 systemd 环境变量
+### 5.2 OAuth 认证阶段：配置 systemd 代理环境变量
 
-全局 `proxy-url` 负责核心 Codex 推理链路；环境变量可以覆盖使用标准 HTTP Transport 的更新、OAuth 等辅助请求。
+OAuth token exchange 使用普通 HTTP 客户端，可以读取环境变量。由于 systemd 不会读取用户的 `.bashrc`，CLIProxyAPI 作为服务启动时必须单独注入代理：
+
+```text
+/etc/cliproxy-backend-proxy.env
+/etc/systemd/system/cliproxy-backend.service.d/proxy.conf
+```
+
+环境变量配置为：
 
 创建 `/etc/cliproxy-backend-proxy.env`：
 
@@ -325,6 +332,8 @@ NO_PROXY=127.0.0.1,localhost
 [Service]
 EnvironmentFile=/etc/cliproxy-backend-proxy.env
 ```
+
+这一步解决了 CLIProxyAPI 进程未使用 PProxy、导致 OAuth 认证出现“地区不支持”的问题。它针对的是 OAuth 普通 HTTP 请求，与上一节 Codex uTLS 推理请求使用的 `proxy-url` 是不同链路；两部分都需要配置。
 
 应用配置：
 
